@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './UpdateEmploye.css'
 
 const UpdateEmployee = ({ onUpdateEmployee }) => {
   const { employeeId } = useParams();
@@ -13,6 +15,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [country, setCountry] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     // Fetch the employee data based on the ID
@@ -87,6 +90,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
         .update(updatedEmployee)
         .then(() => {
           console.log('Employee updated successfully!');
+          alert("Employee updated successfully!");
         })
         .catch((error) => {
           console.error('Error updating employee:', error);
@@ -94,6 +98,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
     } else {
       setErrors(validationErrors);
     }
+    navigate("/home/manageemployees");
   };
 
   const validateForm = () => {
@@ -132,7 +137,10 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   }
 
   return (
+ 
+
     <form className="update-employee-form" onSubmit={handleSubmit}>
+      <br></br>
       <h2>Update Employee</h2>
 
       <div className="form-group">
