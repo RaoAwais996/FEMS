@@ -1,0 +1,21 @@
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+  }
+  
+  .photo-item {
+    margin-right: 250px;
+    text-align: center;
+  }
+  
+  .photo-item:last-child {
+    margin-right: 0;
+  }
+  
+  .photo-item img {
+    width: 100px;
+    height: 100px;
+  }
+  

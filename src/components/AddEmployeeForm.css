@@ -1,0 +1,81 @@
+.add-employee-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .add-employee-form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .add-employee-form .input-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .add-employee-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 16px;
+  }
+  
+  .add-employee-form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #645d5d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-employee-form button[type="submit"]:hover {
+    background-color: #333;
+  }
+  
+
+  .add-employee-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .add-employee-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .add-employee-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .add-employee-form input[type="text"],
+  .add-employee-form input[type="password"],
+  .add-employee-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-employee-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-employee-form button:hover {
+    background-color: #45a049;
+  }
+  
