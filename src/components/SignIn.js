@@ -18,6 +18,7 @@ const SignIn = ({ onSignIn }) => {
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
+      alert('Error signing in with email and password');
     }
   };
 

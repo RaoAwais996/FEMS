@@ -139,7 +139,7 @@ const CalendarTable = () => {
   const handleManageEmployees = () => {
     setShowAddEmployeeForm(false);
     setShowManageEmployees(true);
-    navigate('/home/manageemployees'); // Navigate to '/home/addemployee'
+    navigate('/home/manageemployees'); 
 
   };
   

@@ -6,6 +6,7 @@ import CalendarTable from './components/CalendarTable.js';
 import AddEmployeeForm from './components/AddEmployeeForm.js'; // Add this import
 import EmployeesManagement from './components/EmployeesManagement.js'; // Add this import
 import { auth } from './firebase';
+import UpdateEmployee from './components/UpdateEmployee.js';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -62,7 +63,7 @@ function App() {
           <Route path="/home" element={<div><HomeHeader /><CalendarTable /></div>} />
           <Route path="/home/addemployee" element={<AddEmployeeForm />} /> {/* Add this route */}
           <Route path="/home/manageemployees" element={<EmployeesManagement />} /> {/* Add this route */}
-        </Routes>
+          <Route path="/home/manageemployees/update/:employeeId" element={<UpdateEmployee />} />     </Routes>
       </div>
     </Router>
   );

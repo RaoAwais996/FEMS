@@ -1,11 +1,14 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { doc, updateDoc, deleteField } from "firebase/firestore";
+import UpdateEmployee from './UpdateEmployee';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,21 +27,32 @@ const EmployeeManagement = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (e,employeeId) => {
-    e.preventDefault()
+  const handleDelete = async (e, employeeId) => {
+    e.preventDefault();
     console.log('Deleting employee with ID:', employeeId);
-      try {
-       await db.collection('employees').doc(employeeId).delete();
-        // await deleteDoc(doc(db, 'employees', employeeId));
-        console.log('Employee deleted successfully');
-      } catch (error) {
-        console.error('Error deleting employee:', error);
-      }
-    
+    try {
+      await db.collection('employees').doc(employeeId).delete();
+      console.log('Employee deleted successfully');
+      setSelectedEmployee(null); // Reset selected employee after deletion
+    } catch (error) {
+      console.error('Error deleting employee:', error);
+    }
+  };
+
+  const handleUpdate = (e, employeeId) => {
+    e.preventDefault();
+
+    const selected = employees.find((employee) => employee.id === employeeId);
+    console.log('Selected employee:', selected);
+    setSelectedEmployee(selected);
+
+    navigate(`/home/manageemployees/update`);
+
+
   };
 
   return (
-    <form>
+    <div>
       <br />
       <h2>Manage Employee</h2>
       <br />
@@ -66,14 +80,28 @@ const EmployeeManagement = () => {
               <td>{employee.phoneNumber}</td>
               <td>{employee.country}</td>
               <td>
-                <button onClick={(e) => handleDelete(e,employee.id)}>Delete</button>
+                <button onClick={(e) => handleDelete(e, employee.id)}>Delete</button>
+                
+                
+                <Link to={`/home/manageemployees/update/${employee.id}`}>
+                <button>Update</button>
+                </Link>
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </form>
+
+      {selectedEmployee !== null && selectedEmployee !== undefined && (
+        <UpdateEmployee
+          employee={selectedEmployee}
+          onUpdateEmployee= {() => setSelectedEmployee(null)}
+        />
+      )}
+    </div>
   );
 };
+
 
 export default EmployeeManagement;
