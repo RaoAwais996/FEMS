@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { doc, updateDoc, deleteField } from "firebase/firestore";
@@ -22,7 +24,8 @@ const EmployeeManagement = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (employeeId) => {
+  const handleDelete = async (e,employeeId) => {
+    e.preventDefault()
     console.log('Deleting employee with ID:', employeeId);
       try {
        await db.collection('employees').doc(employeeId).delete();
@@ -63,7 +66,7 @@ const EmployeeManagement = () => {
               <td>{employee.phoneNumber}</td>
               <td>{employee.country}</td>
               <td>
-                <button onClick={() => handleDelete(employee.id)}>Delete</button>
+                <button onClick={(e) => handleDelete(e,employee.id)}>Delete</button>
               </td>
             </tr>
           ))}
