@@ -3,6 +3,7 @@ import { db } from '../firebase';
 import UpdateEmployee from './UpdateEmployee';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './EmployeesManagement.css';
 
 
 const EmployeeManagement = () => {
@@ -33,10 +34,19 @@ const EmployeeManagement = () => {
     try {
       await db.collection('employees').doc(employeeId).delete();
       console.log('Employee deleted successfully');
+      alert('Employee deleted successfully');
       setSelectedEmployee(null); // Reset selected employee after deletion
     } catch (error) {
       console.error('Error deleting employee:', error);
     }
+    // write code to re render the employees list
+    const snapshot = await db.collection('employees').get();
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setEmployees(data);
+
   };
 
   const handleUpdate = (e, employeeId) => {

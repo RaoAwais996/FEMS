@@ -16,9 +16,12 @@ const saveEmployee = (employeeData) => {
     .set(employeeData)
     .then(() => {
       console.log('Employee saved successfully!');
+      alert('Employee saved successfully!');
     })
     .catch((error) => {
       console.error('Error saving employee:', error);
+      alert('Error saving employee. Please try again later.');
+
     });
 };
 
@@ -85,6 +88,8 @@ const AddEmployeeForm = ({ onAddEmployee }) => {
       setPhoneNumber('');
       setCountry('');
       setErrors({});
+      navigate('/home'); // Navigate to '/home' when Cancel button is clicked
+
     } else {
       setErrors(validationErrors);
     }

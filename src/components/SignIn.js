@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
 import './SignIn.css'; // Import the CSS file
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('employee'); // Default user type is 'employee'
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleSignIn = async (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -15,6 +17,7 @@ const SignIn = ({ onSignIn }) => {
       console.log('User signed in');
       // Pass the user type to the parent component
       onSignIn(userType);
+      navigate('/home')
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
