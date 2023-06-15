@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn.js';
 import HomeHeader from './components/HomeHeader.js';
 import CalendarTable from './components/CalendarTable.js';
-import AddEmployeeForm from './components/AddEmployeeForm.js'; // Add this import
-import EmployeesManagement from './components/EmployeesManagement.js'; // Add this import
+import AddEmployeeForm from './components/AddEmployeeForm.js';
+import EmployeesManagement from './components/EmployeesManagement.js';
 import { auth } from './firebase';
 import UpdateEmployee from './components/UpdateEmployee.js';
 
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userType, setUserType] = useState('employee'); // Default user type is 'employee'
+  const [email, setemail] = useState(''); 
 
   useEffect(() => {
     // Check if user is already signed in
@@ -31,16 +33,23 @@ function App() {
     };
   }, []);
 
-  const handleSignIn = async (email, password, navigate) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      // Sign-in successful
-      console.log('User signed in');
-      navigate('/signin'); // Navigate to '/signin' route after successful sign-in
-    } catch (error) {
-      // Handle sign-in error
-      console.error('Error signing in:', error);
-    }
+  const handleSignIn = (type,email) => {
+    setUserType(type);
+    setemail(email);
+    console.log('User ',type,' signed in', email);
+    // try {
+    //   await auth.signInWithEmailAndPassword(email, password);
+    //   // Sign-in successful
+    //   console.log('User signed in');
+    //   navigate('/home');
+    // } catch (error) {
+    //   // Handle sign-in error
+    //   console.error('Error signing in:', error);
+    // }
+  };
+
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
   };
 
   return (
@@ -53,17 +62,26 @@ function App() {
               isLoading ? (
                 <p>Loading..........</p>
               ) : user ? (
-                <Navigate to="/home" replace />
+                <Navigate to="/signin" replace />
               ) : (
                 <Navigate to="/signin" replace />
               )
             }
           />
           <Route path="/signin" element={<SignIn onSignIn={handleSignIn} />} />
-          <Route path="/home" element={<div><HomeHeader /><CalendarTable /></div>} />
-          <Route path="/home/addemployee" element={<AddEmployeeForm />} /> {/* Add this route */}
-          <Route path="/home/manageemployees" element={<EmployeesManagement />} /> {/* Add this route */}
-          <Route path="/home/manageemployees/update/:employeeId" element={<UpdateEmployee />} />     </Routes>
+          <Route
+            path="/home"
+            element={
+              <div>
+                <HomeHeader />
+                <CalendarTable userType={userType} useremail={email} />
+              </div>
+            }
+          />
+          <Route path="/home/addemployee" element={<AddEmployeeForm />} />
+          <Route path="/home/manageemployees" element={<EmployeesManagement />} />
+          <Route path="/home/manageemployees/update/:employeeId" element={<UpdateEmployee />} />
+        </Routes>
       </div>
     </Router>
   );

@@ -12,12 +12,40 @@ const SignIn = ({ onSignIn }) => {
   const handleSignIn = async (e) => {
     e.preventDefault(); // Prevent the default form submission
     try {
+      if (userType === 'hr') {
+        await handleSignInHR(); 
+      } else {
+        await handleSignInUser(); 
+      }
+    } catch (error) {
+      // Handle sign-in error
+      console.error('Error signing in:', error);
+      alert('Error signing in with email and password');
+    }
+  };
+
+  const handleSignInHR = async () => {
+    try {
       await auth.signInWithEmailAndPassword(email, password);
       // Sign-in successful
       console.log('User signed in');
       // Pass the user type to the parent component
-      onSignIn(userType);
-      navigate('/home')
+      onSignIn(userType,email);
+      navigate('/home');
+    } catch (error) {
+      // Handle sign-in error
+      console.error('Error signing in:', error);
+      alert('Error signing in with email and password');
+    }
+  };
+
+  const handleSignInUser = async () => {
+    try {
+      // Handle HR sign-in logic here
+      alert('User sign-in');
+      // Pass the user type to the parent component
+      onSignIn(userType,email);
+      navigate('/home');
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
@@ -35,7 +63,7 @@ const SignIn = ({ onSignIn }) => {
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="form-group mt-3">
-            <label>Email address</label>
+            <label>Email address </label>
             <br />
             <input
               type="email"

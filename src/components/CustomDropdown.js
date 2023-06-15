@@ -24,7 +24,7 @@ const CustomDropdown = ({ options, value, onChange, backgroundColor }) => {
             key={option}
             className={`option ${value === option ? 'selected' : ''}`}
             onClick={() => handleOptionClick(option)}
-          >
+          >   
             {option}
           </div>
         ))}

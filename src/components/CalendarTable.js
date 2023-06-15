@@ -7,35 +7,54 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import CustomDropdown from './CustomDropdown';
 
-const CalendarTable = () => {
+const CalendarTable = ({ userType,useremail }) => {
   const [currentDate, setCurrentDate] = useState(moment());
   const [showAddEmployeeForm, setShowAddEmployeeForm] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [showManageEmployees, setShowManageEmployees] = useState(false);
-  const navigate = useNavigate(); // Hook for navigation
+  const [employeeName, setEmployeeName] = useState('');
+
+  const navigate = useNavigate(); 
+
 
   useEffect(() => {
     // Fetch employees from the database
     const fetchEmployees = async () => {
       try {
         const employeesSnapshot = await db.collection('employees').get();
-        const fetchedEmployees = employeesSnapshot.docs.map((doc) => {
+        const fetchedEmployees = [];
+        
+        employeesSnapshot.forEach((doc) => {
           const employeeData = doc.data();
-          return { id: doc.id, name: employeeData.name, fields: employeeData.fields || {} };
+          fetchedEmployees.push({
+            id: doc.id,
+            name: employeeData.name,
+            email: employeeData.email,
+            fields: employeeData.fields || {}
+          });
         });
+
         setEmployees(fetchedEmployees);
+
+        if (userType === 'employee') {
+          const employee = fetchedEmployees.find((employee) => employee.email === useremail);
+          if (employee) {
+            console.log('Employee name:', employee.name);
+            setEmployeeName(employee.name);
+          }
+        }
       } catch (error) {
         console.error('Error fetching employees:', error);
       }
     };
 
     fetchEmployees();
-  }, []);
+  }, [userType, useremail]);
 
   const renderCalendarBody = () => {
   const daysInMonth = currentDate.daysInMonth();
   const firstDayOfMonth = currentDate.clone().startOf('month');
-  const firstDayOfWeek = firstDayOfMonth.weekday();
+  // const firstDayOfWeek = firstDayOfMonth.weekday();
   const today = moment();
   const calendarRows = [];
 
@@ -60,7 +79,7 @@ const CalendarTable = () => {
         console.log('Field value updated successfully in Firebase');
       })
       .catch((error) => {
-        console.error('Error updating field value in Firebase:', error);
+        console.error('Error updat ing field value in Firebase:', error);
       });
   };
 
@@ -84,11 +103,12 @@ const CalendarTable = () => {
               key={index}
               className={isUneditable ? 'non-editable' : ''}
               style={{
-                backgroundColor: isUneditable ? 'lightgray' : color,
+                backgroundColor: color,
               }}
             >
 <CustomDropdown
   options={[
+    'Day off',
     'Work day',
     'Work travel',
     'Vacation',
@@ -200,7 +220,7 @@ const CalendarTable = () => {
         <h2>{currentDate.format('MMMM YYYY')}</h2>
         <button onClick={handleNextMonth}>&#8250;</button>
 
-        {showAddEmployeeForm ? null : (
+        {userType === 'hr' && (
           <>
             <button onClick={handleAddEmployee}>Add Employee</button>
             <button onClick={handleManageEmployees}>Manage Employees</button>
@@ -217,5 +237,6 @@ const CalendarTable = () => {
     </div>
   );
 };
+
 
 export default CalendarTable;
