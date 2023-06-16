@@ -36,7 +36,7 @@ function App() {
   const handleSignIn = (type,email) => {
     setUserType(type);
     setemail(email);
-    console.log('User ',type,' signed in', email);
+    console.log('User ',type,' signed in with ', email);
     // try {
     //   await auth.signInWithEmailAndPassword(email, password);
     //   // Sign-in successful

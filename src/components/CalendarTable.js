@@ -18,7 +18,6 @@ const CalendarTable = ({ userType,useremail }) => {
 
 
   useEffect(() => {
-    // Fetch employees from the database
     const fetchEmployees = async () => {
       try {
         const employeesSnapshot = await db.collection('employees').get();
@@ -60,29 +59,35 @@ const CalendarTable = ({ userType,useremail }) => {
 
   const handleCellChange = (employeeIndex, date, value) => {
     const updatedEmployees = [...employees];
-    updatedEmployees[employeeIndex].fields[date.format('YYYY-MM-DD')] = value;
-    setEmployees(updatedEmployees);
-
-    // Update the field value in the Firebase database
-    const employeeId = updatedEmployees[employeeIndex].id;
-    db.collection('employees')
-      .doc(employeeId)
-      .set(
-        {
-          fields: {
-            [date.format('YYYY-MM-DD')]: value,
+    const employee = updatedEmployees[employeeIndex];
+  
+    // Only allow editing if the user is an employee and the email matches
+    if (userType === 'employee' && employee.email === useremail) {
+      employee.fields[date.format('YYYY-MM-DD')] = value;
+      setEmployees(updatedEmployees);
+  
+      const employeeId = employee.id;
+      db.collection('employees')
+        .doc(employeeId)
+        .set(
+          {
+            fields: {
+              [date.format('YYYY-MM-DD')]: value,
+            },
           },
-        },
-        { merge: true }
-      )
-      .then(() => {
-        console.log('Field value updated successfully in Firebase');
-      })
-      .catch((error) => {
-        console.error('Error updat ing field value in Firebase:', error);
-      });
+          { merge: true }
+        )
+        .then(() => {
+          alert('Field value updated successfully.');
+        })
+        .catch((error) => {
+          alert('Error updating field value in Firebase:', error);
+        });
+    } else {
+      alert('Access denied: Only the employee can edit their column');
+    }
   };
-
+  
   for (let day = 1; day <= daysInMonth; day++) {
     const date = firstDayOfMonth.clone().add(day - 1, 'day');
     const weekNumber = date.week();
@@ -95,39 +100,42 @@ const CalendarTable = ({ userType,useremail }) => {
         <td>{date.format('DD MMMM YYYY')}</td>
         <td>{date.format('dddd')}</td>
         {employees.map((employee, index) => {
-          const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
-          const color = getColorForField(field);
-          const isUneditable = isWeekend;
-          return (
-            <td
-              key={index}
-              className={isUneditable ? 'non-editable' : ''}
-              style={{
-                backgroundColor: color,
-              }}
-            >
-<CustomDropdown
-  options={[
-    'Day off',
-    'Work day',
-    'Work travel',
-    'Vacation',
-    'Special event',
-    'Sick Leave',
-  ]}
-  value={field}
-  backgroundColor={isUneditable ? 'lightgray' : color}
-  onChange={(value) => handleCellChange(index, date, value)}
-/>
+        const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
+        const color = getColorForField(field);
+        const isUneditable = userType === 'employee' && employee.email !== useremail;
 
-            </td>
-          );
-        })}
-      </tr>
-    );
-  }
+        return (
+          <td
+            key={index}
+            className={isUneditable ? 'non-editable' : ''}
+            style={{
+              backgroundColor: color,
+            }}
+          >
+            {isUneditable ? (
+              <span>{field}</span>
+            ) : (
+              <CustomDropdown
+                options={[
+                  'Day off',
+                  'Work day',
+                  'Work travel',
+                  'Vacation',
+                  'Special event',
+                  'Sick Leave',
+                ]}
+                value={field}
+                backgroundColor={color}
+                onChange={(value) => handleCellChange(index, date, value)}
+              />
+            )}
+          </td>
+        );
+      })}
+    </tr>);
+  };
+  
 
-  // Render the calendar table
   return (
     <table className="calendar-table">
       <thead>
@@ -146,7 +154,6 @@ const CalendarTable = ({ userType,useremail }) => {
   );
 };
 
-
   const handlePrevMonth = () => {
     setCurrentDate(currentDate.clone().subtract(1, 'month'));
   };
@@ -156,7 +163,7 @@ const CalendarTable = ({ userType,useremail }) => {
   };
 
   const handleAddEmployee = () => {
-    navigate('/home/addemployee'); // Navigate to '/home/addemployee
+    navigate('/home/addemployee'); 
     setShowAddEmployeeForm(true);
   };
 
@@ -172,7 +179,6 @@ const CalendarTable = ({ userType,useremail }) => {
     updatedEmployees[index].fields[date.format('YYYY-MM-DD')] = value;
     setEmployees(updatedEmployees);
 
-    // Update the field value in the Firebase database
     const employeeId = updatedEmployees[index].id;
     db.collection('employees')
       .doc(employeeId)

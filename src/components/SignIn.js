@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { auth } from '../firebase';
 import './SignIn.css'; // Import the CSS file
 import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase';
+
 
 const SignIn = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
@@ -28,7 +30,7 @@ const SignIn = ({ onSignIn }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       // Sign-in successful
-      console.log('User signed in');
+      console.log('HR signed in');
       // Pass the user type to the parent component
       onSignIn(userType,email);
       navigate('/home');
@@ -41,17 +43,38 @@ const SignIn = ({ onSignIn }) => {
 
   const handleSignInUser = async () => {
     try {
-      // Handle HR sign-in logic here
-      alert('User sign-in');
-      // Pass the user type to the parent component
-      onSignIn(userType,email);
-      navigate('/home');
+      // Retrieve user data from the database
+      const userRef = db.collection('employees').where('email', '==', email);
+      const snapshot = await userRef.get();
+  
+      if (snapshot.empty) {
+        // User not found in the database
+        alert('Invalid email or password');
+        return;
+      }
+  
+      // Check the user's credentials
+      let user;
+      snapshot.forEach((doc) => {
+        user = doc.data();
+      });
+  
+      if (user.password === password) {
+        // Credentials are correct
+        alert('Employee signed in');
+        onSignIn(userType, email); // Pass the user type and email to the parent component
+        navigate('/home'); // Redirect to the home page
+      } else {
+        // Incorrect credentials
+        alert('Invalid email or password');
+      }
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
       alert('Error signing in with email and password');
     }
   };
+  
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
