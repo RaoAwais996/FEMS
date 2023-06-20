@@ -51,6 +51,9 @@ const CalendarTable = ({ userType,useremail }) => {
     fetchEmployees();
   }, [userType, useremail]);
 
+
+
+
   const renderCalendarBody = () => {
   const daysInMonth = currentDate.daysInMonth();
   const firstDayOfMonth = currentDate.clone().startOf('month');
@@ -58,16 +61,20 @@ const CalendarTable = ({ userType,useremail }) => {
   const today = moment();
   const calendarRows = [];
 
+
+
+
   const handleCellChange = (employeeIndex, date, value) => {
     const updatedEmployees = [...employees];
     const selectedEmployee = updatedEmployees[employeeIndex];
   
     // Only allow editing if the user is an employee and the email matches
-    if (userType === 'hr' || (userType === 'employee' && selectedEmployee.email === useremail)) {
+    if (userType === 'hr') {
+      alert('You are teh hr.');
       let updatedCount = 0; // Variable to track the number of updated employees
   
       // If the value is 'Day off', update the field for all employees for that date
-      if (value === 'Day off') {
+      if (value === 'Day off'&& userType === 'hr') {
         updatedEmployees.forEach((employee) => {
           if (!employee.fields) {
             employee.fields = {};
@@ -107,7 +114,42 @@ const CalendarTable = ({ userType,useremail }) => {
       if (updatedCount > 0) {
         alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
       }
-    } else {
+    }
+
+
+    if (userType === 'employee' && selectedEmployee.email === useremail) {
+
+      const fieldExists = selectedEmployee.fields && selectedEmployee.fields[date.format('YYYY-MM-DD')];
+
+      if (fieldExists) {
+        alert('You have already updated this field. You cannot change your selection.');
+        return;
+      }
+      selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
+      setEmployees(updatedEmployees);
+  
+      const employeeId = selectedEmployee.id;
+      db.collection('employees')
+        .doc(employeeId)
+        .set(
+          {
+            fields: {
+              [date.format('YYYY-MM-DD')]: value,
+            },
+          },
+          { merge: true }
+        )
+        .then(() => {
+          alert('Field value updated successfully.');
+        })
+        .catch((error) => {
+          alert('Error updating field value in Firebase:', error);
+        });
+    }
+
+
+    
+    else {
       alert('Access denied: Only the employee can edit their column');
     }
   };
