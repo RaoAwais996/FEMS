@@ -73,7 +73,10 @@ function App() {
             path="/home"
             element={
               <div>
+ <br></br>
                 <HomeHeader />
+                <br></br>
+                <br></br>
                 <CalendarTable userType={userType} useremail={email} />
               </div>
             }

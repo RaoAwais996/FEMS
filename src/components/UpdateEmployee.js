@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import './UpdateEmploye.css'
+import { useParams, useNavigate } from 'react-router-dom';
+import './UpdateEmploye.css';
 
 const UpdateEmployee = ({ onUpdateEmployee }) => {
   const { employeeId } = useParams();
 
   const [employee, setEmployee] = useState(null);
-  const [employeeName, setEmployeeName] = useState('');
-  const [password, setPassword] = useState('');
-  const [gender, setGender] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [country, setCountry] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the employee data based on the ID
     const fetchEmployee = async () => {
       try {
         const employeeDoc = await db.collection('employees').doc(employeeId).get();
         if (employeeDoc.exists) {
           const employeeData = employeeDoc.data();
           setEmployee(employeeData);
-          setEmployeeName(employeeData.name);
-          setPassword(employeeData.password);
-          setGender(employeeData.gender);
+          setFirstName(employeeData.firstName);
+          setLastName(employeeData.lastName);
           setEmail(employeeData.email);
-          setPhoneNumber(employeeData.phoneNumber);
-          setCountry(employeeData.country);
+          setPassword(employeeData.password);
+          setRole(employeeData.role);
         } else {
           console.log('Employee not found');
         }
@@ -45,23 +41,20 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'employeeName':
-        setEmployeeName(value);
+      case 'firstName':
+        setFirstName(value);
         break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'gender':
-        setGender(value);
+      case 'lastName':
+        setLastName(value);
         break;
       case 'email':
         setEmail(value);
         break;
-      case 'phoneNumber':
-        setPhoneNumber(value);
+      case 'password':
+        setPassword(value);
         break;
-      case 'country':
-        setCountry(value);
+      case 'role':
+        setRole(value);
         break;
       default:
         break;
@@ -72,25 +65,23 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      // Update the employee object with the form data
       const updatedEmployee = {
         ...employee,
-        name: employeeName,
-        password: password,
-        gender: gender,
-        email: email,
-        phoneNumber: phoneNumber,
-        country: country,
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
       };
 
-      // Update the employee document in the 'employees' collection
       await db
         .collection('employees')
         .doc(employeeId)
         .update(updatedEmployee)
         .then(() => {
           console.log('Employee updated successfully!');
-          alert("Employee updated successfully!");
+          alert('Employee updated successfully!');
+          onUpdateEmployee();
         })
         .catch((error) => {
           console.error('Error updating employee:', error);
@@ -98,36 +89,32 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
     } else {
       setErrors(validationErrors);
     }
-    navigate("/home/manageemployees");
+    navigate('/home/manageemployees');
   };
 
   const validateForm = () => {
     const errors = {};
-    if (!employeeName.trim()) {
-      errors.employeeName = 'Employee name is required';
+    if (!firstName.trim()) {
+      errors.firstName = 'First name is required';
     }
-    if (!password.trim()) {
-      errors.password = 'Password is required';
-    }
-    if (!gender.trim()) {
-      errors.gender = 'Gender is required';
+    if (!lastName.trim()) {
+      errors.lastName = 'Last name is required';
     }
     if (!email.trim()) {
       errors.email = 'Email is required';
     } else if (!isValidEmail(email)) {
       errors.email = 'Invalid email format';
     }
-    if (!phoneNumber.trim()) {
-      errors.phoneNumber = 'Phone number is required';
+    if (!password.trim()) {
+      errors.password = 'Password is required';
     }
-    if (!country.trim()) {
-      errors.country = 'Country is required';
+    if (!role.trim()) {
+      errors.role = 'Role is required';
     }
     return errors;
   };
 
   const isValidEmail = (email) => {
-    // Basic email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -137,45 +124,33 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   }
 
   return (
- 
-
     <form className="update-employee-form" onSubmit={handleSubmit}>
-      <br></br>
       <h2>Update Employee</h2>
 
       <div className="form-group">
-        <label>Employee Name:</label>
+        <label>First Name:</label>
         <input
           type="text"
-          name="employeeName"
-          value={employeeName}
+          name="firstName"
+          value={firstName}
           onChange={handleInputChange}
-          placeholder="Enter employee name"
+          placeholder="Enter first name"
         />
-        {errors.employeeName && <span className="error">{errors.employeeName}</span>}
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
       </div>
+
       <div className="form-group">
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-          placeholder="Enter password"
-        />
-        {errors.password && <span className="error">{errors.password}</span>}
-      </div>
-      <div className="form-group">
-        <label>Gender:</label>
+        <label>Last Name:</label>
         <input
           type="text"
-          name="gender"
-          value={gender}
+          name="lastName"
+          value={lastName}
           onChange={handleInputChange}
-          placeholder="Enter gender"
+          placeholder="Enter last name"
         />
-        {errors.gender && <span className="error">{errors.gender}</span>}
+        {errors.lastName && <span className="error">{errors.lastName}</span>}
       </div>
+
       <div className="form-group">
         <label>Email:</label>
         <input
@@ -187,27 +162,29 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
         />
         {errors.email && <span className="error">{errors.email}</span>}
       </div>
+
       <div className="form-group">
-        <label>Phone Number:</label>
+        <label>Password:</label>
         <input
-          type="text"
-          name="phoneNumber"
-          value={phoneNumber}
+          type="password"
+          name="password"
+          value={password}
           onChange={handleInputChange}
-          placeholder="Enter phone number"
+          placeholder="Enter password"
         />
-        {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+        {errors.password && <span className="error">{errors.password}</span>}
       </div>
+
       <div className="form-group">
-        <label>Country:</label>
+        <label>Role:</label>
         <input
           type="text"
-          name="country"
-          value={country}
+          name="role"
+          value={role}
           onChange={handleInputChange}
-          placeholder="Enter country"
+          placeholder="Enter role"
         />
-        {errors.country && <span className="error">{errors.country}</span>}
+        {errors.role && <span className="error">{errors.role}</span>}
       </div>
 
       <div className="form-group">

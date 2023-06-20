@@ -1,53 +1,18 @@
 .custom-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .selected-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    cursor: pointer;
-  }
-  
-  .options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: max-content; /* Updated to width */
-    min-width: 100%; /* Added min-width */
-    background-color: white;
-    border: 1px solid lightgray;
-    border-top: none;
-    display: none;
-    z-index: 2;
-  }
-  
-  .open .options {
-    display: block;
-  }
-  
-  .option {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .option:hover {
-    background-color: lightgray;
-  }
-  
-  .selected {
-    background-color: black;
-    color: white;
-  }
-  
+  border: none;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 14px;
+  appearance: none; /* Remove default appearance */
+  -webkit-appearance: none; /* Remove default appearance for WebKit browsers */
+  -moz-appearance: none; /* Remove default appearance for Mozilla browsers */
+}
 
-  /* .custom-dropdown .selected-option.updated {
-    color: white;
-  }
-   */
+.custom-dropdown:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: none; /* Remove focus box-shadow */
+}
+
+.custom-dropdown option {
+  color: black; /* Set option text color */
+}
