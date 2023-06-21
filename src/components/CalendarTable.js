@@ -70,7 +70,6 @@ const CalendarTable = ({ userType,useremail }) => {
   
     // Only allow editing if the user is an employee and the email matches
     if (userType === 'hr') {
-      alert('You are teh hr.');
       let updatedCount = 0; // Variable to track the number of updated employees
   
       // If the value is 'Day off', update the field for all employees for that date
@@ -150,7 +149,7 @@ const CalendarTable = ({ userType,useremail }) => {
 
     
     else {
-      alert('Access denied: Only the employee can edit their column');
+      // alert('Access denied: Only the employee can edit their column');
     }
   };
   
