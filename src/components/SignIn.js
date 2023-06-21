@@ -33,6 +33,8 @@ const SignIn = ({ onSignIn }) => {
       console.log('HR signed in');
       // Pass the user type to the parent component
       onSignIn(userType,email);
+      localStorage.setItem('email', email);
+        localStorage.setItem('userType', 'hr');
       navigate('/home');
     } catch (error) {
       // Handle sign-in error
@@ -63,6 +65,9 @@ const SignIn = ({ onSignIn }) => {
         // Credentials are correct
         alert('Employee signed in');
         onSignIn(userType, email); // Pass the user type and email to the parent component
+        localStorage.setItem('email', email);
+
+        localStorage.setItem('userType', 'employee');
         navigate('/home'); // Redirect to the home page
       } else {
         // Incorrect credentials

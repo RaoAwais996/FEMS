@@ -7,6 +7,8 @@ import AddEmployeeForm from './components/AddEmployeeForm.js';
 import EmployeesManagement from './components/EmployeesManagement.js';
 import { auth } from './firebase';
 import UpdateEmployee from './components/UpdateEmployee.js';
+import Header from "./components/Appbar.js";
+import AppBar from "./components/Appbar.js";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -73,16 +75,22 @@ function App() {
             path="/home"
             element={
               <div>
- <br></br>
+                  <AppBar></AppBar>
+                <br></br>
                 <HomeHeader />
                 <br></br>
                 <br></br>
-                <CalendarTable userType={userType} useremail={email} />
+                <CalendarTable userType={localStorage.getItem('userType')} useremail={localStorage.getItem('email')} />
               </div>
             }
           />
           <Route path="/home/addemployee" element={<AddEmployeeForm />} />
-          <Route path="/home/manageemployees" element={<EmployeesManagement />} />
+          <Route path="/home/manageemployees" element={
+            <>
+            <AppBar></AppBar>
+            <EmployeesManagement />
+            </>
+          } />
           <Route path="/home/manageemployees/update/:employeeId" element={<UpdateEmployee />} />
         </Routes>
       </div>

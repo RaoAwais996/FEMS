@@ -154,8 +154,6 @@ const CalendarTable = ({ userType,useremail }) => {
   };
   
   
-  
-  
   for (let day = 1; day <= daysInMonth; day++) {
     const date = firstDayOfMonth.clone().add(day - 1, 'day');
     const weekNumber = date.week();

@@ -1,3 +1,6 @@
+.embody{
+  margin-bottom: 50px;
+}
 
 .container {
   margin: 0 auto;
@@ -67,9 +70,12 @@ h2 {
   color: white;
 }
 
-.delete:hover,
-.update:hover {
+.delete:hover{
   background-color: #c62828;
+}
+
+.update:hover{
+  background-color: #1976d2;
 }
 
 .update:disabled {

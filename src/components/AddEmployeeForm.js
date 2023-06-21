@@ -82,7 +82,7 @@ const AddEmployeeForm = ({ onAddEmployee }) => {
   };
 
   const handleCancel = () => {
-    navigate('/home'); // Navigate to '/home' when Cancel button is clicked
+    navigate('/home/manageemployees'); // Navigate to '/home/manageemployees' when Cancel button is clicke
   };
 
   const validateForm = () => {
