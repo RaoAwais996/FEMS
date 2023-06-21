@@ -4,14 +4,13 @@ import 'firebase/compat/firestore';
 
 
 const firebaseConfig = {
-  // Your Firebase configuration code
-  apiKey: "AIzaSyAKzSbVTfNU0pWryjygqUPhq9UyFWGxft0",
-  authDomain: "fems-8f272.firebaseapp.com",
-  projectId: "fems-8f272",
-  storageBucket: "fems-8f272.appspot.com",
-  messagingSenderId: "827870461224",
-  appId: "1:827870461224:web:858ae873a1a1e04ee0641d",
-  measurementId: "G-EGB6WW8RF1"
+  apiKey: "AIzaSyC9asfaUtPPiZadHlHpZBGjbLJjYdQ7ikg",
+  authDomain: "vacation1-486fd.firebaseapp.com",
+  projectId: "vacation1-486fd",
+  storageBucket: "vacation1-486fd.appspot.com",
+  messagingSenderId: "371883872158",
+  appId: "1:371883872158:web:19a2b4516371076a45908f",
+  measurementId: "G-RZ3KEP2MWJ"
 };
 
 // Initialize Firebase
