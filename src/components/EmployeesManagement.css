@@ -5,11 +5,13 @@
 .container {
   margin: 0 auto;
   max-width: 800px;
+
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  
 }
 
 .button-container {
@@ -21,23 +23,30 @@ h2 {
 .add {
   background-color: #4caf50;
   justify-content: center;
-  color: white;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  margin-right: 50px;
+  outline: black;
+  outline-style: auto;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-left: 50px;
+  margin-right: 100px;
+  border-radius: 50px;
 }
 
 .table th,
 .table td {
   border: 1px solid #ddd;
   padding: 8px;
+  
 }
 
 .table th {
@@ -60,22 +69,28 @@ h2 {
 }
 
 .delete {
-  background-color: #e53935;
-  color: white;
+  background-color: #FFCB05;
+  color: black;
   margin-right: 10px;
+  outline: black;
+  outline-style: auto;
 }
 
 .update {
-  background-color: #2196f3;
-  color: white;
+  background-color: #FFCB05;
+  color: black;
+  outline: black;
+  outline-style: auto;
 }
 
 .delete:hover{
-  background-color: #c62828;
+  background-color: red;
+  color: white;
 }
 
 .update:hover{
   background-color: #1976d2;
+  color: white;
 }
 
 .update:disabled {
@@ -85,7 +100,20 @@ h2 {
 
 
 .button-container button.add {
-  background-color: #43a047;
-  color: #ffffff;
+  background-color: #FFCB05;
+  color: black;
   justify-content: center;
+}
+
+.button-container button.add:hover {
+  background-color: #FFCB05;
+  color: white;
+
+}
+
+.calendar-table th {
+  background-color: #333;
+  color: black;
+  background-color: #FFCB05;
+
 }

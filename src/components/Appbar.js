@@ -15,9 +15,9 @@ const AppBar = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container">
-                <a className="navbar-brand" onClick={()=>navigate('/home')} href="#">Agjenda e pushimeve</a>
+        <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#FFCB05' }}>
+        <div className="container" >
+                <a className="navbar-brand" onClick={()=>navigate('/home')} style={{color:'black'}} href="#">Agjenda e pushimeve</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -26,11 +26,11 @@ const AppBar = () => {
                         {
                             localStorage.getItem('userType') === 'hr' ?
                                 <li className="nav-item">
-                                    <a className="nav-link" onClick={()=>navigate('/home/manageemployees/')} href="#">Employees</a>
+                                    <a className="nav-link" onClick={()=>navigate('/home/manageemployees/')} style={{color:'black'}} href="#">Employees</a>
                                 </li>:null
                         }
                         <li className="nav-item">
-                            <a className="nav-link" onClick={logout} href="#">Logout</a>
+                            <a className="nav-link" onClick={logout} style={{color:'black'}} href="#">Logout</a>
                         </li>
                     </ul>
                 </div>

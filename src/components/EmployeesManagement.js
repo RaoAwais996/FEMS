@@ -69,15 +69,16 @@ const EmployeeManagement = () => {
   return (
     <div>
       <br />
-        <button className="add" onClick={handleGoBack}>Back</button> 
-      <h2>Manage Employees</h2>
+      <br />
+      {/* <button className="add" onClick={handleGoBack}>Back</button>  */}
+      <h2 >Manage Employees</h2>
       <br />
       <div className="button-container">
         <button className="add" onClick={handleAddEmployee}>Add Employee</button> 
       </div>
       <br />
-      <table className="table">
-        <thead className="thead-dark">
+      <table className="calendar-table">
+        <thead className="thead-dark" >
           <tr>
             <th scope="col">#</th>
             <th scope="col">First Name</th>
@@ -99,6 +100,7 @@ const EmployeeManagement = () => {
               <td>{employee.role}</td>
               <td>
                 <button className="delete" onClick={(e) => handleDelete(e, employee.id)}>Delete</button>
+               
                 <button className="update" onClick={(e) => handleUpdate(e, employee.id)}>Update</button>
               </td>
             </tr>

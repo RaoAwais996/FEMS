@@ -63,7 +63,6 @@ const CalendarTable = ({ userType,useremail }) => {
 
 
 
-
   const handleCellChange = (employeeIndex, date, value) => {
     const updatedEmployees = [...employees];
     const selectedEmployee = updatedEmployees[employeeIndex];
@@ -72,8 +71,7 @@ const CalendarTable = ({ userType,useremail }) => {
     if (userType === 'hr') {
       let updatedCount = 0; // Variable to track the number of updated employees
   
-      // If the value is 'Day off', update the field for all employees for that date
-      if (value === 'Day off'&& userType === 'hr') {
+      if (value === 'Day off' && userType === 'hr') {
         updatedEmployees.forEach((employee) => {
           if (!employee.fields) {
             employee.fields = {};
@@ -83,7 +81,41 @@ const CalendarTable = ({ userType,useremail }) => {
             updatedCount++;
           }
         });
-      } else {
+      
+        setEmployees(updatedEmployees);
+      
+        if (updatedCount > 0) {
+          // alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
+        }
+      
+        // Update the Firestore database for all employees
+        const batch = db.batch();
+        updatedEmployees.forEach((employee) => {
+          const employeeId = employee.id;
+          const employeeRef = db.collection('employees').doc(employeeId);
+          batch.set(
+            employeeRef,
+            {
+              fields: {
+                [date.format('YYYY-MM-DD')]: employee.fields[date.format('YYYY-MM-DD')],
+              },
+            },
+            { merge: true }
+          );
+        });
+      
+        batch
+          .commit()
+          .then(() => {
+            alert('Field values updated in Firebase successfully.');
+          })
+          .catch((error) => {
+            alert('Error updating field value in Firebase:', error);
+          });
+                      // alert('Field value updated in Firebase successfully.');
+
+      }
+       else {
         // Set the value for the selected employee's field
         if (!selectedEmployee.fields) {
           selectedEmployee.fields = {};
@@ -206,12 +238,12 @@ const CalendarTable = ({ userType,useremail }) => {
 
   return (
     <table className="calendar-table">
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Week</th>
-          <th>Date</th>
-          <th>Day</th>
+    <thead >
+        <tr  >
+          <th  class="values">Month</th>
+          <th  class="values">Week</th>
+          <th class="values" >Date</th>
+          <th  class="values">Day</th>
           {employees.map((employee) => (
             <th key={employee.id}>{employee.name}</th>
           ))}
