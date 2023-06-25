@@ -1,18 +1,24 @@
 .calendar-container {
-  width: 75%;
+  width: 85%;
   margin: 0 auto;
   margin-bottom: 50px;
 }
 
-.calendar-header {
+.calendar-uperline {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-
 }
 
-.calendar-header button {
+.calendar-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #FFCB05;
+}
+
+.calendar-uperline button {
   margin-right: 10px;
   padding: 5px 10px;
   background-color: #333;
@@ -22,51 +28,37 @@
   cursor: pointer;
   background-color: #FFCB05;
   outline: black;
-  outline-style: auto
-
+  outline-style: auto;
 }
 
 .calendar-header h2 {
   font-size: 24px;
   margin: 0;
   color: #333;
-  
 }
 
 .calendar-table {
-  width: 100%;
   border-collapse: collapse;
   border-radius: 10px;
   overflow: hidden;
-  
+  table-layout: fixed;
+  width: 100%;
 }
 
 .calendar-table th,
 .calendar-table td {
-  padding: 10px;
   text-align: center;
   border: 1px solid #333;
-  
+  height: 40px;
+  box-sizing: border-box;
+  padding: 5px;
 }
 
 .calendar-table th {
   background-color: #333;
   color: black;
   background-color: #FFCB05;
-
 }
-/* 
-.calendar-table td:first-child {
-  border-left: none;
-}
-
-.calendar-table td:last-child {
-  border-right: none;
-}
-
-.calendar-table tr:last-child td {
-  border-bottom: none;
-} */
 
 .non-editable {
   background-color: lightgray;
@@ -96,31 +88,27 @@ select {
   cursor: pointer;
   margin-left: 10px;
   background-color: #FFCB05;
-
 }
 
 .button-container button:hover {
   color: #e6e6e6;
 }
 
-
-.header-bar {
-  background-color: #FFCB05;
+.values {
   color: #333;
 }
 
-
-.values{
-  color: #333;
-}
-
-
-
-/* ADD HOVERS FOR ALL THE BUTTONS AND STUFF */
-.calendar-header button:hover{
+.calendar-uperline button:hover {
   background-color: #eec10e;
   color: white;
 }
 
 
+.calendar-header.sticky {
+  position: fixed;
+  border-radius: 10px;
+  top: 0;
+  width: 85%;
+  z-index: 2;
+}
 
