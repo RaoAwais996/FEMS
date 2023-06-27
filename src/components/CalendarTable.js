@@ -309,10 +309,10 @@ const renderCalendarBody = () => {
     <table className="calendar-table">
     <thead className={`calendar-header ${isHeaderSticky ? 'sticky' : ''}`} ref={tableHeadRef}>
       <tr>
-        <th className="qwee">Muaji</th>
-        <th className="qwee">Java</th>
-        <th className="qwee">Data</th>
-        <th className="qwee">Dita</th>
+        <th >Muaji</th>
+        <th >Java</th>
+        <th >Data</th>
+        <th >Dita</th>
         {employees.map((employee) => (
           <th key={employee.id} className="qwee">
             {employee.name}
@@ -357,8 +357,10 @@ const renderCalendarBody = () => {
           return '#c230d9';
         case 'Prezent në punë':
           return 'white';
+          case 'Ditë e lirë' :
+            return 'lightgrey';
       default:
-        return 'lightgrey';
+        return 'white';
     }
   };
 
