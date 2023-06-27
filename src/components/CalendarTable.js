@@ -309,7 +309,7 @@ const renderCalendarBody = () => {
     <table className="calendar-table">
     <thead className={`calendar-header ${isHeaderSticky ? 'sticky' : ''}`} ref={tableHeadRef}>
       <tr>
-        <th className="qwee">Month</th>
+        <th className="qwee">Muaji</th>
         <th className="qwee">Java</th>
         <th className="qwee">Data</th>
         <th className="qwee">Dita</th>

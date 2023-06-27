@@ -10,22 +10,22 @@ const HomeHeader = () => {
     {
       id: 1,
       imageSrc: photo1,
-      title: 'Work Travel',
+      title: 'udhetim zyretar',
     },
     {
       id: 2,
       imageSrc: photo2,
-      title: 'Vacation',
+      title: 'pushim vjetor',
     },
     {
       id: 3,
       imageSrc: photo3,
-      title: 'Sick Leave',
+      title: 'Pushim mjekësor',
     },
     {
       id: 4,
       imageSrc: photo4,
-      title: 'Special Event' ,
+      title: 'Event Special' ,
     },
   ];
 

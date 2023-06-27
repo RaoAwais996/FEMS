@@ -16,7 +16,7 @@ const AppBar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#FFCB05' }}>
-        <div className="container" >
+        <div className="container-fluid" style={{width:'85%'}}>
                 <a className="navbar-brand" onClick={()=>navigate('/home')} style={{color:'black'}} href="#">Agjenda e pushimeve</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
