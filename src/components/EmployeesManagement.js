@@ -67,51 +67,54 @@ const EmployeeManagement = () => {
   };
 
   return (
-    <div>
-      <br />
-      <br />
-      {/* <button className="add" onClick={handleGoBack}>Back</button>  */}
-      <h2 >Manage Employees</h2>
-      <br />
-      <div className="button-container">
-        <button className="add" onClick={handleAddEmployee}>Add Employee</button> 
-      </div>
-      <br />
-      <table className="calendar-table">
-        <thead className="thead-dark" >
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Password</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((employee, index) => (
-            <tr key={employee.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{employee.firstName}</td>
-              <td>{employee.lastName}</td>
-              <td>{employee.email}</td>
-              <td>{employee.password}</td>
-              <td>{employee.role}</td>
-              <td>
-                <button className="delete" onClick={(e) => handleDelete(e, employee.id)}>Delete</button>
-               
-                <button className="update" onClick={(e) => handleUpdate(e, employee.id)}>Update</button>
-              </td>
+      <div style={{display:'flex',width:'100%',justifyContent:'center',alignItems:'center'}}>
+        <div style={{width:'95%'}}>
+          <br />
+          <br />
+          {/* <button className="add" onClick={handleGoBack}>Back</button>  */}
+          <h2 >Manage Employees</h2>
+          <br />
+          <div className="button-container">
+            <button className="add" onClick={handleAddEmployee}>Add Employee</button>
+          </div>
+          <br />
+          <table className="calendar-table">
+            <thead className="thead-dark" >
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+              <th scope="col">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+            {employees.map((employee, index) => (
+                <tr key={employee.id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{employee.firstName}</td>
+                  <td>{employee.lastName}</td>
+                  <td>{employee.email}</td>
+                  <td>{employee.password}</td>
+                  <td>{employee.role}</td>
+                  <td>
+                    <button className="delete" onClick={(e) => handleDelete(e, employee.id)}>Delete</button>
 
-      {selectedEmployee && (
-        <UpdateEmployee employee={selectedEmployee} onUpdateEmployee={() => setSelectedEmployee(null)} />
-      )}
-    </div>
+                    <button className="update" onClick={(e) => handleUpdate(e, employee.id)}>Update</button>
+                  </td>
+                </tr>
+            ))}
+            </tbody>
+          </table>
+
+          {selectedEmployee && (
+              <UpdateEmployee employee={selectedEmployee} onUpdateEmployee={() => setSelectedEmployee(null)} />
+          )}
+        </div>
+      </div>
+
   );
 };
 

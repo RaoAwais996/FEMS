@@ -1,7 +1,7 @@
 .calendar-container {
   width: 85%;
-  margin: 0 auto;
-  margin-bottom: 50px;
+  margin: 0 auto 50px;
+  overflow: auto;
 }
 
 .calendar-uperline {
@@ -9,13 +9,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-}
 
-.calendar-header {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background-color: #FFCB05;
 }
 
 .calendar-uperline button {
@@ -31,18 +25,25 @@
   outline-style: auto;
 }
 
-.calendar-header h2 {
-  font-size: 24px;
-  margin: 0;
-  color: #333;
-}
 
 .calendar-table {
   border-collapse: collapse;
   border-radius: 10px;
-  overflow: hidden;
-  table-layout: fixed;
   width: 100%;
+}
+
+.calendar-table thead th:nth-child(3){
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+
+.date-sticky{
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: white;
 }
 
 .calendar-table th,
@@ -52,12 +53,8 @@
   height: 40px;
   box-sizing: border-box;
   padding: 5px;
-}
-
-.calendar-table th {
-  background-color: #333;
-  color: black;
-  background-color: #FFCB05;
+  min-width: 200px;
+  width: 2000px;
 }
 
 .non-editable {
@@ -104,11 +101,4 @@ select {
 }
 
 
-.calendar-header.sticky {
-  position: fixed;
-  border-radius: 10px;
-  top: 0;
-  width: 85%;
-  z-index: 2;
-}
 

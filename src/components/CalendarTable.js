@@ -72,26 +72,6 @@ const CalendarTable = ({ userType,useremail }) => {
       };
     }, []);
 
-    useEffect(() => {
-      const tableHeadElement = tableHeadRef.current;
-      const tableHeadCells = tableHeadElement.querySelectorAll('th');
-  
-      const handleResize = () => {
-        tableHeadCells.forEach((cell, index) => {
-          const originalCell = document.querySelector(`.calendar-table thead th:nth-child(${index + 1})`);
-          cell.style.width = originalCell.offsetWidth + 'px';
-        });
-      };
-  
-      handleResize();
-  
-      window.addEventListener('resize', handleResize);
-  
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
-  
 
 const handleCellChange = (employeeIndex, date, value) => {
   const updatedEmployees = [...employees];
@@ -257,7 +237,7 @@ const renderCalendarBody = () => {
       <tr key={day}>
  <td>{monthsAlbanian[date.format('MMMM')]}</td>
          <td>{weekNumber}</td>
-         <td>{date.format('DD') + ' ' + monthsAlbanian[date.format('MMMM')] + ' ' + date.format('YYYY')}</td>
+         <td className='date-sticky'>{date.format('DD') + ' ' + monthsAlbanian[date.format('MMMM')] + ' ' + date.format('YYYY')}</td>
         <td>{daysAlbanian[date.isoWeekday() - 1]}</td>
                 {employees.map((employee, index) => {
           const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
@@ -300,21 +280,20 @@ const renderCalendarBody = () => {
         })}
       </tr>
     );
-
     // Move to the next day
     firstDayOfMonth.add(1, 'day');
   }
 
   return (
     <table className="calendar-table">
-    <thead className={`calendar-header ${isHeaderSticky ? 'sticky' : ''}`} ref={tableHeadRef}>
+      <thead className='sticky-top' >
       <tr>
         <th >Muaji</th>
         <th >Java</th>
         <th >Data</th>
         <th >Dita</th>
         {employees.map((employee) => (
-          <th key={employee.id} className="qwee">
+          <th key={employee.id} >
             {employee.name}
           </th>
         ))}
@@ -389,7 +368,7 @@ const renderCalendarBody = () => {
 
 
   return (
-    <div className="calendar-container">
+    <div className="calendar-container " style={{overflowX:'clip', overflowY:'clip',display:'block'}}>
       <div className="calendar-uperline">
         <button onClick={handlePrevMonth}>&#8249;</button>
         <h2>{monthsAlbania[date.format('MMMM')] +' '+currentDate.format('YYYY')}</h2>
@@ -402,13 +381,31 @@ const renderCalendarBody = () => {
           </>
         )}
       </div>
-      {showAddEmployeeForm ? (
-        <AddEmployeeForm onAddEmployee={handleEmployeeAdded} />
-      ) : showManageEmployees ? (
-        <EmployeesTable />
-      ) : (
-        renderCalendarBody()
-      )}
+      {/*<table className="calendar-table sticky-top">*/}
+      {/*  <thead className='sticky-top' >*/}
+      {/*  <tr>*/}
+      {/*    <th >Muaji</th>*/}
+      {/*    <th >Java</th>*/}
+      {/*    <th >Data</th>*/}
+      {/*    <th >Dita</th>*/}
+      {/*    {employees.map((employee) => (*/}
+      {/*        <th key={employee.id} >*/}
+      {/*          {employee.name}*/}
+      {/*        </th>*/}
+      {/*    ))}*/}
+      {/*  </tr>*/}
+      {/*  </thead>*/}
+      {/*</table>*/}
+      <div className='overflow-auto' style={{height:'80vh'}}>
+        {showAddEmployeeForm ? (
+            <AddEmployeeForm onAddEmployee={handleEmployeeAdded} />
+        ) : showManageEmployees ? (
+            <EmployeesTable />
+        ) : (
+            renderCalendarBody()
+        )}
+      </div>
+
     </div>
   );
 };

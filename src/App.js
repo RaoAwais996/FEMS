@@ -75,12 +75,14 @@ function App() {
             path="/home"
             element={
               <div>
-                  <AppBar></AppBar>
-                <br></br>
-                <HomeHeader />
+                <AppBar></AppBar>
                 <br></br>
                 <br></br>
-                <CalendarTable userType={localStorage.getItem('userType')} useremail={localStorage.getItem('email')} />
+                <br></br>
+                <div style={{display:'flex', height:'80vh',justifyContent:'space-evenly',alignItems:'center',marginRight:'30px',marginBottom:'100px'}}>
+                  <HomeHeader />
+                  <CalendarTable userType={localStorage.getItem('userType')} useremail={localStorage.getItem('email')} />
+                </div>
               </div>
             }
           />
