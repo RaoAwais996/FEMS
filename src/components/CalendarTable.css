@@ -40,9 +40,8 @@
 .calendar-table {
   border-collapse: collapse;
   border-radius: 10px;
-  overflow: hidden;
-  table-layout: fixed;
-  width: 100%;
+  /*table-layout: fixed;*/
+  /*width: 100%;*/
 }
 
 .calendar-table th,

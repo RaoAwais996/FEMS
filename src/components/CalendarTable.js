@@ -307,8 +307,8 @@ const renderCalendarBody = () => {
 
   return (
     <table className="calendar-table">
-    <thead className={`calendar-header ${isHeaderSticky ? 'sticky' : ''}`} ref={tableHeadRef}>
-      <tr>
+    <thead ref={tableHeadRef} className='sticky-top'>
+      <tr >
         <th className="qwee">Month</th>
         <th className="qwee">Java</th>
         <th className="qwee">Data</th>
@@ -387,7 +387,7 @@ const renderCalendarBody = () => {
 
 
   return (
-    <div className="calendar-container">
+    <div className="calendar-container"  style={{overflowX:'clip', overflowY:'clip',display:'block'}}>
       <div className="calendar-uperline">
         <button onClick={handlePrevMonth}>&#8249;</button>
         <h2>{monthsAlbania[date.format('MMMM')] +' '+currentDate.format('YYYY')}</h2>
