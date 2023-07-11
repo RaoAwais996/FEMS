@@ -31,9 +31,6 @@ const HomeHeader = () => {
 
   return (
     <div className="home-header">
-
-
-        
       {photos.map((photo) => (
         <div className="photo-item" key={photo.id}>
           <img src={photo.imageSrc} alt={photo.title} />

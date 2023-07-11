@@ -288,12 +288,12 @@ const renderCalendarBody = () => {
     <table className="calendar-table">
       <thead className='sticky-top' >
       <tr>
-        <th >Muaji</th>
-        <th >Java</th>
-        <th >Data</th>
-        <th >Dita</th>
+        <th className="smallWidth">Muaji</th>
+        <th className="smallWidth">Java</th>
+        <th className="smallWidth">Data</th>
+        <th className="smallWidth">Dita</th>
         {employees.map((employee) => (
-          <th key={employee.id} >
+          <th key={employee.id} className="largeWidth" >
             {employee.name}
           </th>
         ))}

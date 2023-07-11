@@ -29,7 +29,7 @@
 .calendar-table {
   border-collapse: collapse;
   border-radius: 10px;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 .calendar-table thead th:nth-child(3){
@@ -54,7 +54,18 @@
   box-sizing: border-box;
   padding: 5px;
   min-width: 200px;
-  width: 2000px;
+  width: 200px;
+}
+
+.smallWidth{
+  text-align: center;
+  border: 1px solid #333;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 5px;
+  min-width: 50px;
+  width: 50px;
+
 }
 
 .non-editable {

@@ -78,9 +78,9 @@ function App() {
                 <AppBar></AppBar>
                 <br></br>
                 <br></br>
-                <br></br>
-                <div style={{display:'flex', height:'80vh',justifyContent:'space-evenly',alignItems:'center',marginRight:'30px',marginBottom:'100px'}}>
+                <div style={{display:'flex',flexDirection:'column',justifyContent:'space-evenly',alignItems:'center',marginRight:'30px',marginBottom:'100px'}}>
                   <HomeHeader />
+                  <br></br>
                   <CalendarTable userType={localStorage.getItem('userType')} useremail={localStorage.getItem('email')} />
                 </div>
               </div>
