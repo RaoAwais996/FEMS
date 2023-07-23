@@ -1,6 +1,10 @@
 /* UpdateEmployee.css */
 
 .update-employee-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -52,11 +56,11 @@
   
 
   .update-employee-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Adjust the height as needed */
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*height: 100vh; !* Adjust the height as needed *!*/
   }
   
   .update-employee-form form {

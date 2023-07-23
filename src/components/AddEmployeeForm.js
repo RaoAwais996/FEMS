@@ -14,11 +14,11 @@ const saveEmployee = (employeeData) => {
     .set(employeeData)
     .then(() => {
       console.log('Employee saved successfully!');
-      alert('Employee saved successfully!');
+      //alert('Employee saved successfully!');
     })
     .catch((error) => {
       console.error('Error saving employee:', error);
-      alert('Error saving employee. Please try again later.');
+      //alert('Error saving employee. Please try again later.');
     });
 };
 
@@ -54,12 +54,14 @@ const AddEmployeeForm = ({ onAddEmployee }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
+    const sr = (await db.collection('employees').get()).size+1;
     if (Object.keys(validationErrors).length === 0) {
       // Create an employee object with the form data
       const employee = {
+        sr,
         firstName,
         lastName,
         email,

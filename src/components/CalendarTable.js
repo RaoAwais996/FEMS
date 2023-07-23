@@ -26,7 +26,7 @@ const CalendarTable = ({ userType,useremail }) => {
     const fetchEmployees = async () => {
       try {
         const employeesSnapshot = await db.collection('employees').get();
-        const fetchedEmployees = [];
+        let fetchedEmployees = [];
         
         employeesSnapshot.forEach((doc) => {
           const employeeData = doc.data();
@@ -37,6 +37,8 @@ const CalendarTable = ({ userType,useremail }) => {
             fields: employeeData.fields || {}
           });
         });
+
+        fetchedEmployees = fetchedEmployees?.sort((a, b) => (a.sr > b.sr ? 1 : -1))
 
         setEmployees(fetchedEmployees);
 
@@ -100,7 +102,7 @@ const handleCellChange = (employeeIndex, date, value) => {
       setEmployees(updatedEmployees);
 
       if (updatedCount > 0) {
-        // alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
+        // //alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
       }
 
       // Update the Firestore database for all employees
@@ -122,10 +124,10 @@ const handleCellChange = (employeeIndex, date, value) => {
       batch
         .commit()
         .then(() => {
-          alert('Field values updated in Firebase successfully.');
+          //alert('Field values updated in Firebase successfully.');
         })
         .catch((error) => {
-          alert('Error updating field value in Firebase:', error);
+          //alert('Error updating field value in Firebase:', error);
         });
     } else {
       // Set the value for the selected employee's field
@@ -155,20 +157,20 @@ const handleCellChange = (employeeIndex, date, value) => {
           { merge: true }
         )
         .catch((error) => {
-          alert('Error updating field value in Firebase:', error);
+          //alert('Error updating field value in Firebase:', error);
         });
     }
 
     setEmployees(updatedEmployees);
 
     if (updatedCount > 0) {
-      alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
+      //alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
     }
   } else if (userType === 'employee' && selectedEmployee.email === useremail) {
     const fieldExists = selectedEmployee.fields && selectedEmployee.fields[date.format('YYYY-MM-DD')];
 
     if (fieldExists) {
-      alert('You have already updated this field. You cannot change your selection.');
+      //alert('You have already updated this field. You cannot change your selection.');
       return;
     }
 
@@ -187,13 +189,13 @@ const handleCellChange = (employeeIndex, date, value) => {
         { merge: true }
       )
       .then(() => {
-        alert('Field value updated successfully.');
+        //alert('Field value updated successfully.');
       })
       .catch((error) => {
-        alert('Error updating field value in Firebase:', error);
+        //alert('Error updating field value in Firebase:', error);
       });
   } else {
-    // alert('Access denied: Only the employee can edit their column');
+    // //alert('Access denied: Only the employee can edit their column');
   }
 };
 
@@ -293,7 +295,7 @@ const renderCalendarBody = () => {
         <th className="smallWidth">Data</th>
         <th className="smallWidth">Dita</th>
         {employees.map((employee) => (
-          <th key={employee.id} className="largeWidth" >
+          <th key={employee.id} className="" >
             {employee.name}
           </th>
         ))}

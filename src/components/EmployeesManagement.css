@@ -117,3 +117,28 @@ h2 {
   background-color: #FFCB05;
 
 }
+
+
+.calendar-table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.calendar-table thead th:nth-child(3){
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+
+.calendar-table th,
+.calendar-table td {
+  text-align: center;
+  border: 1px solid #333;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 5px;
+  min-width: 200px;
+  width: 200px;
+}

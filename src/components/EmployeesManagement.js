@@ -13,10 +13,12 @@ const EmployeeManagement = () => {
     const fetchData = async () => {
       try {
         const snapshot = await db.collection('employees').get();
-        const data = snapshot.docs.map((doc) => ({
+        let data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
+        console.log(data)
+        data = data?.sort((a, b) => (a.sr > b.sr ? 1 : -1))
         setEmployees(data);
       } catch (error) {
         console.error('Error fetching employees:', error);
@@ -27,12 +29,11 @@ const EmployeeManagement = () => {
   }, []);
 
   const handleDelete = async (e, employeeId) => {
-    e.preventDefault();
     console.log('Deleting employee with ID:', employeeId);
     try {
       await db.collection('employees').doc(employeeId).delete();
       console.log('Employee deleted successfully');
-      alert('Employee deleted successfully');
+      //alert('Employee deleted successfully');
       setSelectedEmployee(null); // Reset selected employee after deletion
 
       // Fetch updated employees data
@@ -45,6 +46,7 @@ const EmployeeManagement = () => {
     } catch (error) {
       console.error('Error deleting employee:', error);
     }
+    window.location.reload();
   };
 
   const handleUpdate = (e, employeeId) => {
@@ -72,7 +74,7 @@ const EmployeeManagement = () => {
           <br />
           <br />
           {/* <button className="add" onClick={handleGoBack}>Back</button>  */}
-          <h2 >Manage Employees</h2>
+          <h2 >Menaxho punëtoret</h2>
           <br />
           <div className="button-container">
             <button className="add" onClick={handleAddEmployee}>Add Employee</button>
@@ -93,7 +95,7 @@ const EmployeeManagement = () => {
             <tbody>
             {employees.map((employee, index) => (
                 <tr key={employee.id}>
-                  <th scope="row">{index + 1}</th>
+                  <th scope="row">{employee.sr}</th>
                   <td>{employee.firstName}</td>
                   <td>{employee.lastName}</td>
                   <td>{employee.email}</td>

@@ -8,6 +8,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
 
   const [employee, setEmployee] = useState(null);
   const [firstName, setFirstName] = useState('');
+  const [sr,setSr] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +28,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
           setEmail(employeeData.email);
           setPassword(employeeData.password);
           setRole(employeeData.role);
+          setSr(employeeData.sr);
         } else {
           console.log('Employee not found');
         }
@@ -41,6 +43,9 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
+      case 'sr':
+        setSr(value);
+        break;
       case 'firstName':
         setFirstName(value);
         break;
@@ -67,6 +72,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
     if (Object.keys(validationErrors).length === 0) {
       const updatedEmployee = {
         ...employee,
+        sr,
         firstName,
         lastName,
         email,
@@ -80,7 +86,7 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
         .update(updatedEmployee)
         .then(() => {
           console.log('Employee updated successfully!');
-          alert('Employee updated successfully!');
+          //alert('Employee updated successfully!');
           onUpdateEmployee();
         })
         .catch((error) => {
@@ -94,6 +100,9 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
 
   const validateForm = () => {
     const errors = {};
+    if(!sr.trim()){
+        errors.sr = 'Sr is required';
+    }
     if (!firstName.trim()) {
       errors.firstName = 'First name is required';
     }
@@ -126,6 +135,30 @@ const UpdateEmployee = ({ onUpdateEmployee }) => {
   return (
     <form className="update-employee-form" onSubmit={handleSubmit}>
       <h2>Update Employee</h2>
+
+      <div className="form-group">
+        <label>Sr:</label>
+        <input
+            type="text"
+            name="sr"
+            value={sr}
+            onChange={handleInputChange}
+            placeholder="Enter Sr"
+        />
+        {errors.sr && <span className="error">{errors.sr}</span>}
+      </div>
+
+      <div className="form-group">
+        <label>First Name:</label>
+        <input
+            type="text"
+            name="firstName"
+            value={firstName}
+            onChange={handleInputChange}
+            placeholder="Enter first name"
+        />
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
+      </div>
 
       <div className="form-group">
         <label>First Name:</label>

@@ -11,6 +11,8 @@ const AppBar = () => {
 
         await auth.signOut();
         localStorage.removeItem('email');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('name');
         window.location.href = '/signin';
     }
 
@@ -30,7 +32,7 @@ const AppBar = () => {
                                 </li>:null
                         }
                         <li className="nav-item">
-                            <a className="nav-link" onClick={logout} style={{color:'black'}} href="#">Logout</a>
+                            <a className="nav-link" onClick={logout} style={{color:'black'}} href="#">Logout {localStorage.getItem('userType')==='hr'?'Natyra':localStorage.getItem('name')}</a>
                         </li>
                     </ul>
                 </div>

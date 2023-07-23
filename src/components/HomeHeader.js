@@ -10,17 +10,17 @@ const HomeHeader = () => {
     {
       id: 1,
       imageSrc: photo1,
-      title: 'udhetim zyretar',
+      title: 'Udhetim Zyretar',
     },
     {
       id: 2,
       imageSrc: photo2,
-      title: 'pushim vjetor',
+      title: 'Pushim Vjetor',
     },
     {
       id: 3,
       imageSrc: photo3,
-      title: 'Pushim mjekësor',
+      title: 'Pushim Mjekësor',
     },
     {
       id: 4,

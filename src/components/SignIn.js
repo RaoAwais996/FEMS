@@ -22,7 +22,7 @@ const SignIn = ({ onSignIn }) => {
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
-      alert('Error signing in with email and password');
+      //alert('Error signing in with email and password');
     }
   };
 
@@ -30,16 +30,15 @@ const SignIn = ({ onSignIn }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       // Sign-in successful
-      console.log('HR signed in');
       // Pass the user type to the parent component
       onSignIn(userType,email);
       localStorage.setItem('email', email);
-        localStorage.setItem('userType', 'hr');
+      localStorage.setItem('userType', 'hr');
       navigate('/home');
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
-      alert('Error signing in with email and password');
+      //alert('Error signing in with email and password');
     }
   };
 
@@ -51,7 +50,7 @@ const SignIn = ({ onSignIn }) => {
   
       if (snapshot.empty) {
         // User not found in the database
-        alert('Invalid email or password');
+        //alert('Invalid email or password');
         return;
       }
   
@@ -63,20 +62,21 @@ const SignIn = ({ onSignIn }) => {
   
       if (user.password === password) {
         // Credentials are correct
-        alert('Employee signed in');
+        //alert('Employee signed in');
         onSignIn(userType, email); // Pass the user type and email to the parent component
         localStorage.setItem('email', email);
-
+        console.log(user)
+        localStorage.setItem('name', user.firstName+" "+user.lastName);
         localStorage.setItem('userType', 'employee');
         navigate('/home'); // Redirect to the home page
       } else {
         // Incorrect credentials
-        alert('Invalid email or password');
+        //alert('Invalid email or password');
       }
     } catch (error) {
       // Handle sign-in error
       console.error('Error signing in:', error);
-      alert('Error signing in with email and password');
+      //alert('Error signing in with email and password');
     }
   };
   
