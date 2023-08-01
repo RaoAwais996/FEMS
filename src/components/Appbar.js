@@ -24,12 +24,20 @@ const AppBar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav me-auto ">
                         {
                             localStorage.getItem('userType') === 'hr' ?
                                 <li className="nav-item">
                                     <a className="nav-link" onClick={()=>navigate('/home/manageemployees/')} style={{color:'black'}} href="#">Employees</a>
-                                </li>:null
+                                </li>
+                                :null
+                        }
+                        {
+                            localStorage.getItem('userType') === 'hr' ?
+                                <li className="nav-item">
+                                    <a className="nav-link" onClick={()=>navigate('/home/report/')} style={{color:'black'}} href="#">Report</a>
+                                </li>
+                                :null
                         }
                         <li className="nav-item">
                             <a className="nav-link" onClick={logout} style={{color:'black'}} href="#">Logout {localStorage.getItem('userType')==='hr'?'Natyra':localStorage.getItem('name')}</a>

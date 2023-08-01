@@ -76,7 +76,7 @@ const EmployeeManagement = () => {
           {/* <button className="add" onClick={handleGoBack}>Back</button>  */}
           <h2 >Menaxho punëtoret</h2>
           <br />
-          <div className="button-container">
+          <div className="button-container-m">
             <button className="add" onClick={handleAddEmployee}>Add Employee</button>
           </div>
           <br />

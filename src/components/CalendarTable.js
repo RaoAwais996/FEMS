@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import './CalendarTable.css';
 import AddEmployeeForm from './AddEmployeeForm';
 import EmployeesTable from './EmployeesManagement';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import CustomDropdown from './CustomDropdown';
 import { useRef } from 'react';
+import './CalendarTable.css';
 
 const CalendarTable = ({ userType,useremail }) => {
   const [currentDate, setCurrentDate] = useState(moment());
@@ -20,8 +20,6 @@ const CalendarTable = ({ userType,useremail }) => {
 
   const navigate = useNavigate(); 
 
-  console.log('User type:', userType);
-
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -32,6 +30,7 @@ const CalendarTable = ({ userType,useremail }) => {
           const employeeData = doc.data();
           fetchedEmployees.push({
             id: doc.id,
+            sr: employeeData.sr,
             name: employeeData.firstName + ' ' + employeeData.lastName,
             email: employeeData.email,
             fields: employeeData.fields || {}
@@ -237,10 +236,10 @@ const renderCalendarBody = () => {
     }
     calendarRows.push(
       <tr key={day}>
- <td>{monthsAlbanian[date.format('MMMM')]}</td>
-         <td>{weekNumber}</td>
+         <td className='responsive-header'>{monthsAlbanian[date.format('MMMM')]}</td>
+         <td className='responsive-header'>{weekNumber}</td>
          <td className='date-sticky'>{date.format('DD') + ' ' + monthsAlbanian[date.format('MMMM')] + ' ' + date.format('YYYY')}</td>
-        <td>{daysAlbanian[date.isoWeekday() - 1]}</td>
+        <td className='responsive-header'>{daysAlbanian[date.isoWeekday() - 1]}</td>
                 {employees.map((employee, index) => {
           const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
           const color = getColorForField(field);
@@ -287,13 +286,13 @@ const renderCalendarBody = () => {
   }
 
   return (
-    <table className="calendar-table">
+    <table className="calendar-table-m">
       <thead className='sticky-top' >
       <tr>
-        <th className="smallWidth">Muaji</th>
-        <th className="smallWidth">Java</th>
+        <th className="smallWidth responsive-header" >Muaji</th>
+        <th className="smallWidth responsive-header">Java</th>
         <th className="smallWidth">Data</th>
-        <th className="smallWidth">Dita</th>
+        <th className="smallWidth responsive-header">Dita</th>
         {employees.map((employee) => (
           <th key={employee.id} className="" >
             {employee.name}
@@ -372,32 +371,20 @@ const renderCalendarBody = () => {
   return (
     <div className="calendar-container " style={{overflowX:'clip', overflowY:'clip',display:'block'}}>
       <div className="calendar-uperline">
-        <button onClick={handlePrevMonth}>&#8249;</button>
-        <h2>{monthsAlbania[date.format('MMMM')] +' '+currentDate.format('YYYY')}</h2>
-        <button onClick={handleNextMonth}>&#8250;</button>
-
-        {userType === 'hr' && (
-          <>
-            <button onClick={handleAddEmployee}>Add Employee</button>
-            <button onClick={handleManageEmployees}>Manage Employees</button>
-          </>
-        )}
+        <div className="d-flex gap-md-5 p-2 mb-sm-2 flex-row">
+          <button onClick={handlePrevMonth}>&#8249;</button>
+          <h2>{monthsAlbania[date.format('MMMM')] +' '+currentDate.format('YYYY')}</h2>
+          <button onClick={handleNextMonth}>&#8250;</button>
+        </div>
+        <div>
+          {userType === 'hr' && (
+              <>
+                <button onClick={handleAddEmployee}>Add Employee</button>
+                <button onClick={handleManageEmployees}>Manage Employees</button>
+              </>
+          )}
+        </div>
       </div>
-      {/*<table className="calendar-table sticky-top">*/}
-      {/*  <thead className='sticky-top' >*/}
-      {/*  <tr>*/}
-      {/*    <th >Muaji</th>*/}
-      {/*    <th >Java</th>*/}
-      {/*    <th >Data</th>*/}
-      {/*    <th >Dita</th>*/}
-      {/*    {employees.map((employee) => (*/}
-      {/*        <th key={employee.id} >*/}
-      {/*          {employee.name}*/}
-      {/*        </th>*/}
-      {/*    ))}*/}
-      {/*  </tr>*/}
-      {/*  </thead>*/}
-      {/*</table>*/}
       <div className='overflow-auto' style={{height:'80vh'}}>
         {showAddEmployeeForm ? (
             <AddEmployeeForm onAddEmployee={handleEmployeeAdded} />

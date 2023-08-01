@@ -9,6 +9,7 @@ import { auth } from './firebase';
 import UpdateEmployee from './components/UpdateEmployee.js';
 import Header from "./components/Appbar.js";
 import AppBar from "./components/Appbar.js";
+import Report from "./components/Report";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -93,6 +94,14 @@ function App() {
             </>
           } />
           <Route path="/home/manageemployees/update/:employeeId" element={<UpdateEmployee />} />
+          <Route path="/home/report/" element={
+            <div>
+              <AppBar></AppBar>
+              <br/>
+              <br/>
+              <Report />
+            </div>
+          } />
         </Routes>
       </div>
     </Router>

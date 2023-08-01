@@ -14,14 +14,14 @@ h2 {
   
 }
 
-.button-container {
+.button-container-m {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
 }
 
 .add {
-  background-color: #4caf50;
+  background-color: #FFCB05;
   justify-content: center;
   color: black;
   border: none;

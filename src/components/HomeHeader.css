@@ -1,3 +1,4 @@
+
 .home-header {
   display: flex;
   align-items: center;
@@ -7,6 +8,12 @@
   align-items: center;
   margin: 0 auto;
 
+}
+
+@media screen and (max-width: 550px) {
+  .home-header {
+    display: none;
+  }
 }
 
 .photo-item {
