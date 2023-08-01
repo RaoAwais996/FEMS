@@ -8,6 +8,7 @@ import CustomDropdown from './CustomDropdown';
 import { useRef } from 'react';
 import './CalendarTable.css';
 
+
 const CalendarTable = ({ userType,useremail }) => {
   const [currentDate, setCurrentDate] = useState(moment());
   const [showAddEmployeeForm, setShowAddEmployeeForm] = useState(false);
@@ -57,6 +58,12 @@ const CalendarTable = ({ userType,useremail }) => {
 
     fetchEmployees();
   }, [userType, useremail]);
+
+  function checkCurrentMonth(date) {
+    const currentMonth = moment().format('MM');
+    return date < currentMonth;
+
+  }
 
   useEffect(() => {
       const handleScroll = () => {
@@ -243,7 +250,7 @@ const renderCalendarBody = () => {
                 {employees.map((employee, index) => {
           const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
           const color = getColorForField(field);
-          const isUneditable = userType === 'employee' && employee.email !== useremail;
+          const isUneditable = (userType === 'employee' && employee.email !== useremail) || checkCurrentMonth(date.format('MM'));
 
           // Set "Day off" for weekends if the field is not already set
           if (isWeekend && !field) {
