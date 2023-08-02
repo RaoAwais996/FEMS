@@ -34,29 +34,29 @@ h2 {
   outline-style: auto;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-left: 50px;
-  margin-right: 100px;
-  border-radius: 50px;
-}
+/*.table {*/
+/*  width: 100%;*/
+/*  border-collapse: collapse;*/
+/*  margin-left: 50px;*/
+/*  margin-right: 100px;*/
+/*  border-radius: 50px;*/
+/*}*/
 
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  
-}
+/*.table th,*/
+/*.table td {*/
+/*  border: 1px solid #ddd;*/
+/*  padding: 8px;*/
 
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
+/*}*/
 
-.table td {
-  text-align: center;
-}
+/*.table th {*/
+/*  background-color: #f2f2f2;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.table td {*/
+/*  text-align: center;*/
+/*}*/
 
 .delete,
 .update {
@@ -111,7 +111,7 @@ h2 {
 
 }
 
-.calendar-table th {
+.calendar-table-r th {
   background-color: #333;
   color: black;
   background-color: #FFCB05;
@@ -119,21 +119,21 @@ h2 {
 }
 
 
-.calendar-table {
+.calendar-table-r {
   border-collapse: collapse;
   border-radius: 10px;
   width: 100%;
 }
 
-.calendar-table thead th:nth-child(3){
+.calendar-table-r thead th:nth-child(3){
   position: sticky;
   left: 0;
   z-index: 1;
 }
 
 
-.calendar-table th,
-.calendar-table td {
+.calendar-table-r th,
+.calendar-table-r td {
   text-align: center;
   border: 1px solid #333;
   height: 40px;
@@ -141,4 +141,28 @@ h2 {
   padding: 5px;
   min-width: 200px;
   width: 200px;
+}
+
+.calendar-table-r-m th,
+.calendar-table-r-m td {
+  text-align: center;
+  border: 1px solid #333;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 5px;
+  min-width: 100px;
+  width: 100px;
+}
+
+.responsive-mobile-table{
+  display:none
+}
+
+@media screen and (max-width: 550px){
+  .responsive-mobile-table{
+    display: table;
+  }
+  .responsive-desktop-table{
+    display: none;
+  }
 }

@@ -69,8 +69,8 @@
   height: 40px;
   box-sizing: border-box;
   padding: 5px;
-  min-width: 50px;
-  width: 50px;
+  min-width: 100px !important;
+  width: 100px !important;
 
 }
 

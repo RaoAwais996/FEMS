@@ -243,10 +243,10 @@ const renderCalendarBody = () => {
     }
     calendarRows.push(
       <tr key={day}>
-         <td className='responsive-header'>{monthsAlbanian[date.format('MMMM')]}</td>
-         <td className='responsive-header'>{weekNumber}</td>
+         <td className='smallWidth responsive-header'>{monthsAlbanian[date.format('MMMM')]}</td>
+         <td className='smallWidth responsive-header'>{weekNumber}</td>
          <td className='date-sticky'>{date.format('DD') + ' ' + monthsAlbanian[date.format('MMMM')] + ' ' + date.format('YYYY')}</td>
-        <td className='responsive-header'>{daysAlbanian[date.isoWeekday() - 1]}</td>
+        <td className='smallWidth responsive-header'>{daysAlbanian[date.isoWeekday() - 1]}</td>
                 {employees.map((employee, index) => {
           const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
           const color = getColorForField(field);
@@ -337,7 +337,7 @@ const renderCalendarBody = () => {
       case 'Udhëtim Zyrëtar':
         return '#6197e8';
       case 'Pushim Vjetor':
-        return '#e87a61';
+        return '#FFCB05';
       case 'Event Special':
         return 'lightgreen';
         case 'Pushim Mjekësor':
