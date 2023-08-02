@@ -80,7 +80,7 @@ const EmployeeManagement = () => {
             <button className="add" onClick={handleAddEmployee}>Add Employee</button>
           </div>
           <br />
-          <table className="calendar-table">
+          <table className="calendar-table-r">
             <thead className="thead-dark" >
             <tr>
               <th scope="col">#</th>
