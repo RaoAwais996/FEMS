@@ -175,10 +175,10 @@ const handleCellChange = (employeeIndex, date, value) => {
   } else if (userType === 'employee' && selectedEmployee.email === useremail) {
     const fieldExists = selectedEmployee.fields && selectedEmployee.fields[date.format('YYYY-MM-DD')];
 
-    if (fieldExists) {
-      //alert('You have already updated this field. You cannot change your selection.');
-      return;
-    }
+    // if (fieldExists) {
+    //   alert('You have already updated this field. You cannot change your selection.');
+    //   return;
+    // }
 
     selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
     setEmployees(updatedEmployees);
