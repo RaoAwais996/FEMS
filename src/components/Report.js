@@ -49,6 +49,7 @@ const Report = () => {
                         id: doc.id, name: doc.data().firstName + " " + doc.data().lastName, ...doc.data(),
                     })
                 });
+                data = data?.sort((a, b) => (a.sr > b.sr ? 1 : -1))
                 setEmployees(data);
             } catch (error) {
                 console.error('Error fetching employees:', error);
