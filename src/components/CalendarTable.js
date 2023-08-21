@@ -173,6 +173,7 @@ const handleCellChange = (employeeIndex, date, value) => {
       //alert(`Field value updated for ${updatedCount} employee(s) successfully.`);
     }
   } else if (userType === 'employee' && selectedEmployee.email === useremail) {
+    console.log("Here",value)
     const fieldExists = selectedEmployee.fields && selectedEmployee.fields[date.format('YYYY-MM-DD')];
 
     // if (fieldExists) {
@@ -201,7 +202,7 @@ const handleCellChange = (employeeIndex, date, value) => {
         //alert('Error updating field value in Firebase:', error);
       });
   } else {
-    // //alert('Access denied: Only the employee can edit their column');
+    alert('Access denied: Only the employee can edit their column');
   }
 };
 
@@ -238,7 +239,10 @@ const renderCalendarBody = () => {
         if (!employee.fields) {
           employee.fields = {};
         }
-        employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë' ;
+        const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
+        if(field==='-'){
+          employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë' ;
+        }
       });
     }
     calendarRows.push(
@@ -253,9 +257,9 @@ const renderCalendarBody = () => {
           const isUneditable = (userType === 'employee' && employee.email !== useremail) || checkCurrentMonth(date.format('MM'));
 
           // Set "Day off" for weekends if the field is not already set
-          if (isWeekend && !field) {
-            employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë' ;
-          }
+          // if (isWeekend && !field) {
+          //   employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë' ;
+          // }
 
           return (
             <td
