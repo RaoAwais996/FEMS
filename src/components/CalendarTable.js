@@ -59,7 +59,7 @@ const CalendarTable = ({userType, useremail}) => {
     }, [userType, useremail]);
 
     function checkCurrentMonth(date) {
-        const currentMonth = moment().format('MM');
+        const currentMonth = moment().format('YYYY-MM');
         return date < currentMonth;
 
     }
@@ -241,7 +241,7 @@ const CalendarTable = ({userType, useremail}) => {
                     {employees.map((employee, index) => {
                         const field = employee.fields[date.format('YYYY-MM-DD')] || '-';
                         const color = getColorForField(field);
-                        const isUneditable = (userType === 'employee' && employee.email !== useremail) || checkCurrentMonth(date.format('MM'));
+                        const isUneditable = (userType === 'employee' && employee.email !== useremail) || checkCurrentMonth(date.format('YYYY-MM'));
 
                         // Set "Day off" for weekends if the field is not already set
                         // if (isWeekend && !field) {
