@@ -95,7 +95,11 @@ const CalendarTable = ({userType, useremail}) => {
                     }
 
                     // Set "Day off" for weekends
+                    if (date.isoWeekday() === 6 || date.isoWeekday() === 7) {
+                        employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                    } else if (employee.fields[date.format('YYYY-MM-DD')] !== value) {
                         employee.fields[date.format('YYYY-MM-DD')] = value;
+                    }
 
                     updatedCount++;
                 });
@@ -137,7 +141,11 @@ const CalendarTable = ({userType, useremail}) => {
                 }
 
                 // Set "Day off" for weekends
+                if (date.isoWeekday() === 6 || date.isoWeekday() === 7) {
+                    selectedEmployee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                } else {
                     selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
+                }
 
                 updatedCount++;
 
@@ -223,15 +231,15 @@ const CalendarTable = ({userType, useremail}) => {
             const weekNumber = date.week();
             const isWeekend = date.isoWeekday() === 6 || date.isoWeekday() === 7; // Check if the date is Saturday or Sunday
 
-            // if (isWeekend) {
-            //     // Set "Day off" for weekends
-            //     employees.forEach((employee) => {
-            //         if (!employee.fields) {
-            //             employee.fields = {};
-            //         }
-            //         employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
-            //     });
-            // }
+            if (isWeekend) {
+                // Set "Day off" for weekends
+                employees.forEach((employee) => {
+                    if (!employee.fields) {
+                        employee.fields = {};
+                    }
+                    employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                });
+            }
             calendarRows.push(
                 <tr key={day}>
                     <td className='smallWidth responsive-header'>{monthsAlbanian[date.format('MMMM')]}</td>
@@ -244,9 +252,9 @@ const CalendarTable = ({userType, useremail}) => {
                         const isUneditable = (userType === 'employee' && employee.email !== useremail) || checkCurrentMonth(date.format('YYYY-MM'));
 
                         // Set "Day off" for weekends if the field is not already set
-                        // if (isWeekend && !field) {
-                        //     employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
-                        // }
+                        if (isWeekend && !field) {
+                            employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                        }
 
                         return (
                             <td
