@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import moment from 'moment';
+import moment, {weekdays} from 'moment';
 import AddEmployeeForm from './AddEmployeeForm';
 import EmployeesTable from './EmployeesManagement';
 import {useNavigate} from 'react-router-dom';
@@ -84,6 +84,7 @@ const CalendarTable = ({userType, useremail}) => {
         const updatedEmployees = [...employees];
         const selectedEmployee = updatedEmployees[employeeIndex];
 
+        console.log('Selected employee:', selectedEmployee.name, value,userType)
         // Only allow editing if the user is an HR and the email matches
         if (userType === 'hr') {
             let updatedCount = 0; // Variable to track the number of updated employees
@@ -97,6 +98,7 @@ const CalendarTable = ({userType, useremail}) => {
                     // Set "Day off" for weekends
                     if (date.isoWeekday() === 6 || date.isoWeekday() === 7) {
                         employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                        if(employee.fields[date.format('YYYY-MM-DD')] !== value) employee.fields[date.format('YYYY-MM-DD')] = value;
                     } else if (employee.fields[date.format('YYYY-MM-DD')] !== value) {
                         employee.fields[date.format('YYYY-MM-DD')] = value;
                     }
@@ -140,9 +142,10 @@ const CalendarTable = ({userType, useremail}) => {
                     selectedEmployee.fields = {};
                 }
 
+                console.log('Selected employee:', selectedEmployee.name,value)
                 // Set "Day off" for weekends
                 if (date.isoWeekday() === 6 || date.isoWeekday() === 7) {
-                    selectedEmployee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                    selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
                 } else {
                     selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
                 }
@@ -173,12 +176,12 @@ const CalendarTable = ({userType, useremail}) => {
             }
         } else if (userType === 'employee' && selectedEmployee.email === useremail) {
             const fieldExists = selectedEmployee.fields && selectedEmployee.fields[date.format('YYYY-MM-DD')];
-
-            if (fieldExists) {
-                //alert('You have already updated this field. You cannot change your selection.');
+            if (fieldExists && selectedEmployee.fields[date.format('YYYY-MM-DD')] !== "       -" && selectedEmployee.fields[date.format('YYYY-MM-DD')] !== "Ditë e lirë") {
+                alert('You have already updated this field. You cannot change your selection.');
                 return;
             }
 
+            console.log('here')
             selectedEmployee.fields[date.format('YYYY-MM-DD')] = value;
             setEmployees(updatedEmployees);
 
@@ -237,7 +240,16 @@ const CalendarTable = ({userType, useremail}) => {
                     if (!employee.fields) {
                         employee.fields = {};
                     }
-                    employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                    console.log(employee.fields[date.format('YYYY-MM-DD')])
+
+                    if(employee.fields[date.format('YYYY-MM-DD')]==undefined){
+                        employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
+                    }
+
+                    if(employee.fields[date.format('YYYY-MM-DD')] !== 'Ditë e lirë'){
+
+                    }else if(!employee.fields || employee.fields[date.format('YYYY-MM-DD')]== "       -")
+                        employee.fields[date.format('YYYY-MM-DD')] = 'Ditë e lirë';
                 });
             }
             calendarRows.push(
