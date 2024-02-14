@@ -102,24 +102,26 @@ const Report = () => {
                     if(e.fields){
                         const keys = Object.keys(e.fields);
                         keys.forEach((field) => {
-                          if(e.fields[field] === event){
-                              if(count[e.name] === undefined){
+                            if (new Date(field) >= new Date(start) && new Date(field) <= new Date(end)) {
+                                if (e.fields[field] === event) {
+                                    if (count[e.name] === undefined) {
+                                        setCount((prevState) => {
+                                            return {
+                                                ...prevState, [e.name]: {
+                                                    count: 1
+                                                }
+                                            }
+                                        })
+                                    }
                                     setCount((prevState) => {
                                         return {
                                             ...prevState, [e.name]: {
-                                                count: 1
+                                                count: prevState[e.name].count + 1
                                             }
                                         }
                                     })
-                              }
-                              setCount((prevState) => {
-                                  return {
-                                      ...prevState, [e.name]: {
-                                          count: prevState[e.name].count + 1
-                                      }
-                                  }
-                              })
-                          }
+                                }
+                            }
                         })
                     }
                 } else if (e.name === employee) {
